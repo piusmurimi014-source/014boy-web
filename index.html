@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>014Boy | Embu's Smartest & Funniest Digital Comedian</title>
+  <meta name="description" content="014Boy – Embu comedian & tech creative. Smart comedy, ICT systems, digital media. Book for events, MC gigs, brand promotions.">
+  <meta name="keywords" content="014Boy, Embu comedian, Kenyan comedy, digital creator, ICT specialist, content creator">
+  <meta name="author" content="014Boy">
+  <meta property="og:title" content="014Boy – Embu's Smartest Digital Comedian">
+  <meta property="og:description" content="Comedy from 014 powered by tech creativity. Chat with AI, book now.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/0a0a0a/39FF14?text=014Boy">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --bg-dark: #0a0a0a;
+      --glass-bg: rgba(20, 20, 20, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --neon-green: #39FF14;
+      --neon-orange: #FF9F1C;
+      --text-light: #f0f0f0;
+      --text-dim: #b0b0b0;
+      --card-bg: rgba(30, 30, 30, 0.5);
+      --glow-green: 0 0 15px rgba(57, 255, 20, 0.6);
+      --glow-orange: 0 0 15px rgba(255, 159, 28, 0.6);
+      --font-primary: 'Inter', sans-serif;
+      --font-display: 'Poppins', sans-serif;
+      --transition: all 0.3s ease;
+    }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #loading-screen {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease, visibility 0.3s;
+      pointer-events: none;
+    }
+    .loading-logo {
+      font-size: clamp(3rem, 15vw, 4rem);
+      font-weight: 800;
+      font-family: var(--font-display);
+      background: linear-gradient(45deg, var(--neon-green), var(--neon-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseGlow 1.5s infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-orange); }
+      100% { text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-orange); }
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-orange));
+      z-index: 9998;
+      transition: width 0.1s;
+      box-shadow: var(--glow-green);
+    }
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .neon-text-green {
+      color: var(--neon-green);
+      text-shadow: var(--glow-green);
+    }
+    .neon-text-orange {
+      color: var(--neon-orange);
+      text-shadow: var(--glow-orange);
+    }
+    .btn-neon {
+      background: transparent;
+      border: 2px solid var(--neon-green);
+      color: var(--neon-green);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1rem;
+      backdrop-filter: blur(5px);
+      text-decoration: none;
+      touch-action: manipulation;
+      min-height: 48px;
+    }
+    .btn-neon:hover {
+      background: var(--neon-green);
+      color: #000;
+      box-shadow: var(--glow-green);
+      transform: translateY(-3px);
+    }
+    .btn-neon-orange {
+      border-color: var(--neon-orange);
+      color: var(--neon-orange);
+    }
+    .btn-neon-orange:hover {
+      background: var(--neon-orange);
+      color: #000;
+      box-shadow: var(--glow-orange);
+    }
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.8rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+      background: rgba(10,10,10,0.5);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+      font-size: 1rem;
+      touch-action: manipulation;
+      white-space: nowrap;
+    }
+    .nav-links a:hover {
+      color: var(--neon-green);
+      border-bottom-color: var(--neon-green);
+    }
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .animated-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(57,255,20,0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 70% 60%, rgba(255,159,28,0.1) 0%, transparent 40%);
+      animation: moveGradient 15s ease infinite;
+      z-index: -1;
+    }
+    @keyframes moveGradient {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      max-width: 80vw;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid transparent;
+      box-shadow: 0 0 25px var(--neon-green), 0 0 45px var(--neon-orange);
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+    .profile-img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 35px var(--neon-green), 0 0 60px var(--neon-orange);
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 10vw, 5rem);
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(1.2rem, 4vw, 1.4rem);
+      color: var(--text-dim);
+      margin: 1rem 0 2rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .hero-buttons .btn-neon {
+      min-width: 200px;
+      flex: 0 1 auto;
+    }
+    .social-row {
+      display: flex;
+      gap: 1.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+    .social-icon {
+      font-size: 2.2rem;
+      color: var(--text-light);
+      transition: var(--transition);
+      display: inline-block;
+      touch-action: manipulation;
+    }
+    .social-icon:hover {
+      color: var(--neon-green);
+      transform: translateY(-5px) scale(1.1);
+      text-shadow: var(--glow-green);
+    }
+    .floating-wa {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: white;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+      transition: var(--transition);
+      z-index: 99;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+    .floating-wa:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #25D366;
+    }
+    .section {
+      padding: 4rem 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .section-title {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      font-family: var(--font-display);
+      border-left: 8px solid var(--neon-orange);
+      padding-left: 1rem;
+    }
+    .skill-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+    .badge {
+      background: rgba(57,255,20,0.1);
+      border: 1px solid var(--neon-green);
+      backdrop-filter: blur(5px);
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      touch-action: manipulation;
+    }
+    .badge:hover {
+      background: var(--neon-green);
+      color: #000;
+      box-shadow: var(--glow-green);
+    }
+    .chat-widget {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      width: 90vw;
+      max-width: 380px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--neon-orange);
+      border-radius: 28px;
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    }
+    @media (min-width: 500px) {
+      .chat-widget {
+        right: 20px;
+        width: 360px;
+      }
+    }
+    .chat-widget.open {
+      display: flex;
+    }
+    .chat-header {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid var(--glass-border);
+      font-weight: 600;
+      color: var(--neon-green);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header i {
+      font-size: 1.5rem;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .chat-messages {
+      height: 280px;
+      max-height: 40vh;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .message {
+      max-width: 85%;
+      padding: 0.7rem 1rem;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      word-wrap: break-word;
+      font-size: 0.95rem;
+    }
+    .message.bot {
+      align-self: flex-start;
+      border-bottom-left-radius: 6px;
+      background: rgba(57,255,20,0.15);
+      border: 1px solid var(--neon-green);
+    }
+    .message.user {
+      align-self: flex-end;
+      border-bottom-right-radius: 6px;
+      background: rgba(255,159,28,0.15);
+      border: 1px solid var(--neon-orange);
+    }
+    .chat-input-area {
+      display: flex;
+      padding: 0.8rem;
+      gap: 0.5rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border-radius: 40px;
+      border: none;
+      background: rgba(0,0,0,0.4);
+      color: white;
+      font-size: 1rem;
+      min-height: 44px;
+    }
+    .chat-send {
+      background: var(--neon-green);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      color: black;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      flex-shrink: 0;
+    }
+    .chat-toggle {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: var(--neon-orange);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: black;
+      cursor: pointer;
+      box-shadow: var(--glow-orange);
+      transition: var(--transition);
+      z-index: 999;
+      touch-action: manipulation;
+    }
+    .footer {
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+      padding: 2.5rem 1rem 1.5rem;
+      border-top: 1px solid var(--glass-border);
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .footer-bottom {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    button, a, .btn-neon, .social-icon, .chat-toggle, .floating-wa, .badge {
+      touch-action: manipulation;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-buttons .btn-neon {
+        min-width: 100%;
+      }
+      .nav-links {
+        gap: 0.8rem;
+      }
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+      .section {
+        padding: 3rem 0.8rem;
+      }
+      .profile-img {
+        width: 140px;
+        height: 140px;
+      }
+      .social-row {
+        gap: 1.2rem;
+      }
+      .social-icon {
+        font-size: 1.8rem;
+      }
+      .chat-toggle {
+        bottom: 80px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+      }
+      .floating-wa {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 2rem;
+      }
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 2rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .stat-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--neon-green);
+      box-shadow: var(--glow-green);
+    }
+    .stat-icon {
+      font-size: 2.8rem;
+      color: var(--neon-orange);
+      filter: drop-shadow(0 0 8px var(--neon-orange));
+      line-height: 1;
+    }
+    .stat-content h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: var(--font-display);
+      color: var(--neon-green);
+      text-shadow: var(--glow-green);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+    .stat-content p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+    .why-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      transition: var(--transition);
+    }
+    .why-card:hover {
+      border-color: var(--neon-orange);
+      transform: translateY(-6px);
+      box-shadow: var(--glow-orange);
+    }
+    .why-icon {
+      font-size: 2.2rem;
+      color: var(--neon-green);
+      margin-bottom: 1.2rem;
+    }
+    .why-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: var(--neon-orange);
+    }
+    .why-card p {
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .empty-section {
+      min-height: 100px;
+      background: transparent;
+      border: 1px dashed var(--neon-orange);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-style: italic;
+      padding: 2rem;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen"><div class="loading-logo">014Boy</div></div>
+  <div id="progress-bar"></div>
+  <nav id="navbar">
+    <div class="nav-logo">014Boy</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#fan-comments">Fan Comments</a>
+      <a href="#why">Why 014Boy</a>
+      <a href="#tiktok-stats">Stats</a>
+    </div>
+  </nav>
+  <a href="https://wa.me/254742544885" target="_blank" class="floating-wa" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <div class="chat-toggle" id="chatToggle"><i class="fas fa-robot"></i></div>
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header"><span><i class="fas fa-robot neon-text-green"></i> 014Boy AI</span><i class="fas fa-times" id="closeChat"></i></div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">Hey🙋🏿‍♂️! I'm 014Boy's AI assistant. Feel free to ask me anything about his comedy, content, or just chat with me! 😎🔥</div>
+    </div>
+    <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Type message..."><button class="chat-send" id="sendChat"><i class="fas fa-paper-plane"></i></button></div>
+  </div>
+
+  <main>
+    <section id="home" class="hero"><div class="animated-bg"></div><div class="hero-content fade-in"><img src="https://1drv.ms/i/c/5F75156B5463DAC8/IQA9nA5wVieTQ5wbN8fK32ShAQZWFu69WYQXn-P2MlyVJGc?e=dHpGxU" alt="014Boy Profile" class="profile-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/300/0a0a0a/39FF14?text=014';"><h1><span>014Boy</span><br>Embu's Smartest & Funniest Digital Comedian 💻🎭</h1><div class="hero-sub">"Comedy from 014 powered by tech creativity."</div><div class="hero-buttons"><a href="#" id="openChatAI" class="btn-neon btn-neon-orange"><i class="fas fa-robot"></i> Chat With 014Boy AI</a></div><div class="social-row"><a href="https://tiktok.com/@014.boyz" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a><a href="https://www.facebook.com/Pius014" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a><a href="http://www.youtube.com/@014Boyz" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a></div></div></section>
+    
+    <section id="about" class="section"><h2 class="section-title">About 014Boy</h2><div class="glass-card" style="padding:2rem;"><p style="font-size:1.2rem; margin-bottom:1.5rem;">I am 014Boy, an Embu-based comedian and digital creator. I combine technology and humor to create smart, relatable content. Skilled in ICT systems, digital media production, networking fundamentals, and online branding. My mission is to entertain, educate, and inspire through intelligent comedy.</p><div class="skill-badges"><span class="badge">Comedy & Script Writing</span><span class="badge">Video Editing</span><span class="badge">ICT Systems</span><span class="badge">Digital Branding</span><span class="badge">Content Strategy</span></div></div></section>
+    
+    <section id="fan-comments" class="section">
+      <h2 class="section-title neon-text-orange">Comments from his top fans</h2>
+            
+      </div>            <!-- REPLACE THIS WITH YOUR IMAGE: William's avatar -->
+            <img class="comment-avatar" src="images/fan3.png" alt="William">
+
+        </div>
+     
+            <!-- REPLACE THIS WITH YOUR IMAGE: Mary's avatar -->
+            <img class="comment-avatar" src="images/fan2.png" alt="Mary">
+        </div>
+    
+            <!-- REPLACE THIS WITH YOUR IMAGE: John's avatar -->
+            <img class="comment-avatar" src="images/fan4.png" alt="John">
+           
+        </div>
+      
+            <!-- REPLACE THIS WITH YOUR IMAGE: Ann's avatar -->
+            <img class="comment-avatar" src="images/fan5.png" alt="Ann">
+        </div>
+     
+            <!-- REPLACE THIS WITH YOUR IMAGE: Peter's avatar -->
+            <img class="comment-avatar" src="images/fan1.png" alt="Peter">
+        </div>
+      
+            <!-- REPLACE THIS WITH YOUR IMAGE: Lucy's avatar -->
+            <img class="comment-avatar" src="images/fan6.png" alt="Lucy">
+        </div>
+       
+            <!-- REPLACE THIS WITH YOUR IMAGE: Kevin's avatar -->
+            <img class="comment-avatar" src="images/fan7.png" alt="Kevin">
+        </div>
+      
+            <!-- REPLACE THIS WITH YOUR IMAGE: Faith's avatar -->
+            <img class="comment-avatar" src="images/fan10.png" alt="Faith">
+    
+        </div>
+            <!-- REPLACE THIS WITH YOUR IMAGE: Daniel's avatar -->
+            <img class="comment-avatar" src="images/fan8.png" alt="Daniel">
+          </div>
+            <!-- REPLACE THIS WITH YOUR IMAGE: Esther's avatar -->
+            <img class="comment-avatar" src="images/fan2.png" alt="Esther">
+
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" id="tiktok-stats">
+      <h2 class="section-title neon-text-orange">📱 TikTok Achievements</h2>
+      <div class="stats-grid" id="statsContainer">
+        <div class="stat-card" id="stat-followers">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-content">
+            <h3 id="followers-count">0</h3>
+            <p>TikTok Followers</p>
+          </div>
+        </div>
+        <div class="stat-card" id="stat-likes">
+          <div class="stat-icon"><i class="fas fa-heart" style="color: #ff4d4d;"></i></div>
+          <div class="stat-content">
+            <h3 id="likes-count">0</h3>
+            <p>Total Likes</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-fire" style="color: #FF9F1C;"></i></div>
+          <div class="stat-content">
+            <h3 class="neon-text-green">🔥 Viral</h3>
+            <p>Content Creator</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-map-marker-alt" style="color: #39FF14;"></i></div>
+          <div class="stat-content">
+            <h3 class="neon-text-green">📍 Embu</h3>
+            <p>Based in Kenya</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" id="why">
+      <h2 class="section-title neon-text-orange">Why 014Boy?</h2>
+      <p class="glass-card" style="padding: 1.5rem 2rem; margin-bottom: 2rem; font-size: 1.2rem; max-width: 900px;">
+        014Boy isn't just a comedian—he's a movement. Blending sharp wit with digital-age creativity, he delivers content that resonates across generations. Here's why brands, fans, and event organizers choose 014Boy.
+      </p>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon"><i class="fas fa-bolt"></i></div><h3>Fresh, Youthful Energy</h3><p>014Boy speaks the language of today's youth. His humor is current, vibrant, and deeply connected to Kenyan pop culture, yet universally relatable.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-brain"></i></div><h3>Smart & Relatable Comedy</h3><p>He turns everyday situations into gold. No forced jokes—just intelligent, observant humor that leaves audiences nodding and laughing.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-shield-alt"></i></div><h3>Brand-Safe & Clean Content</h3><p>Edgy but never offensive. Perfect for brand collaborations, corporate events, and family audiences. His content always aligns with professional values.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-feather-alt"></i></div><h3>Creative Storyteller</h3><p>Beyond jokes, 014Boy crafts narratives that engage. His skits are mini-movies with messages, showcasing versatility as a creator.</p></div>
+        <div class="why-card"><div class="why-icon"><i class="fas fa-handshake"></i></div><h3>Professional & Reliable</h3><p>From concept to delivery, he brings professionalism. Event organizers and brands can count on him to elevate any project.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div><h3>014Boy</h3><p>Embu's digital comedian & ICT creative.</p></div>
+      <div><h4>Quick links</h4>
+        <p>
+          <a href="#home" style="color:var(--neon-green);">Home</a><br>
+          <a href="#about" style="color:var(--neon-green);">About</a><br>
+          <a href="#fan-comments" style="color:var(--neon-green);">Fan Comments</a><br>
+          <a href="#why" style="color:var(--neon-green);">Why 014Boy</a><br>
+          <a href="#tiktok-stats" style="color:var(--neon-green);">TikTok Stats</a>
+        </p>
+      </div>
+      <div class="social-row" style="justify-content:flex-start;">
+        <a href="https://tiktok.com/@014.boyz" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/Pius014" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+        <a href="http://www.youtube.com/@014Boyz" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 014Boy. All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('loading-screen').style.opacity = '0';
+      document.getElementById('loading-screen').style.visibility = 'hidden';
+    });
+    
+    window.addEventListener('scroll', () => { let h = document.documentElement, b = document.body, st = 'scrollTop', sh = 'scrollHeight'; let percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100; document.getElementById('progress-bar').style.width = percent + '%'; });
+    const faders = document.querySelectorAll('.fade-in'); new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')); }, {threshold:0.2}).observe(faders[0]);
+    
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWidget = document.getElementById('chatWidget');
+    const closeChat = document.getElementById('closeChat');
+    const openChatAI = document.getElementById('openChatAI');
+    const sendChat = document.getElementById('sendChat');
+    const chatInput = document.getElementById('chatInput');
+    const chatMessages = document.getElementById('chatMessages');
+    
+    function toggleChat(show) { 
+      if (show) chatWidget.classList.add('open'); 
+      else chatWidget.classList.remove('open'); 
+    }
+    
+    chatToggle.addEventListener('click', () => toggleChat(!chatWidget.classList.contains('open')));
+    closeChat.addEventListener('click', () => toggleChat(false));
+    openChatAI.addEventListener('click', (e) => { 
+      e.preventDefault(); 
+      toggleChat(true); 
+    });
+    
+    // Enhanced AI response function
+    function getBotReply(userMsg) {
+      const msg = userMsg.trim().toLowerCase();
+      
+      if (!msg) return "Say something, fam! 😄";
+      
+      // Greetings detection
+      if (msg.match(/\b(hi|hello|hey|mambo|sasa|niaje|jambo|habari|sup|what's up|wassup)\b/i)) {
+        const greetings = [
+          "Hey there! How's it going? 🔥",
+          "Mambo vipi? 😎",
+          "Hello! Nice to chat with you!",
+          "Sasa! What's good?",
+          "Habari yako? 🎭",
+          "Hey fam! Ready to laugh? 😄"
+        ];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+      }
+      
+      // Questions about 014Boy
+      if (msg.includes('who are you') || msg.includes('about you')) {
+        return "I'm 014Boy's AI assistant! I can tell you all about his comedy, content, and answer your questions. 014Boy is Embu's smartest digital comedian who combines tech with humor! 🎭💻";
+      }
+      
+      if (msg.includes('what do you do') || msg.includes('what can you do')) {
+        return "I can chat with you about 014Boy's content, answer questions, share fun facts, or just have a friendly conversation! What would you like to know? 🤖";
+      }
+      
+      if (msg.includes('content') || msg.includes('videos') || msg.includes('skits')) {
+        return "014Boy creates hilarious skits blending Kenyan humor with tech creativity. You can find his videos on TikTok (@014.boyz) and YouTube (@014Boyz)! 🎬";
+      }
+      
+      if (msg.includes('tiktok') || msg.includes('followers')) {
+        return "014Boy has over 12.3K+ followers on TikTok with 57.3K+ likes! His content keeps getting better every day. Check out @014.boyz! 📱";
+      }
+      
+      if (msg.includes('where') && (msg.includes('from') || msg.includes('based'))) {
+        return "014Boy is based in Embu, Kenya! Representing 014 with smart comedy and digital creativity! 📍🔥";
+      }
+      
+      if (msg.includes('funny') || msg.includes('joke') || msg.includes('comedy')) {
+        return "014Boy's comedy is smart and relatable! He turns everyday situations into gold. Want to hear a quick joke? Why did the computer go to the doctor? It had a virus! 😂";
+      }
+      
+      if (msg.includes('how are you')) {
+        const feelings = [
+          "I'm doing great, thanks for asking! 😊",
+          "Feeling awesome and ready to chat! 🔥",
+          "All systems operational and happy to help! 🤖",
+          "I'm fantastic! How about you?"
+        ];
+        return feelings[Math.floor(Math.random() * feelings.length)];
+      }
+      
+      if (msg.includes('thank')) {
+        return "You're welcome! Always happy to help 😊👍";
+      }
+      
+      if (msg.includes('bye') || msg.includes('goodbye') || msg.includes('see ya')) {
+        return "Catch you later! Come back anytime to chat 🔥👋";
+      }
+      
+      // Default response for other questions
+      const defaultResponses = [
+        "That's an interesting question! Let me think... 🤔",
+        "Hmm, tell me more about that!",
+        "I'm here to chat about 014Boy's comedy and content. What else would you like to know?",
+        "Great question! Did you know 014Boy combines ICT skills with comedy? Pretty cool right? 💻🎭",
+        "I'm learning new things every day! What's on your mind?",
+        "Let's keep the conversation going! Ask me anything about 014Boy!"
+      ];
+      
+      return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    }
+    
+    sendChat.addEventListener('click', () => {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      
+      // Add user message
+      chatMessages.innerHTML += `<div class="message user">${text}</div>`;
+      chatInput.value = '';
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      // Bot response with typing delay
+      setTimeout(() => {
+        const reply = getBotReply(text);
+        chatMessages.innerHTML += `<div class="message bot">${reply}</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 800);
+    });
+    
+    chatInput.addEventListener('keypress', (e) => { 
+      if (e.key === 'Enter') sendChat.click(); 
+    });
+    
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      nav.style.background = window.scrollY > 50 ? 'rgba(10,10,10,0.9)' : 'rgba(10,10,10,0.5)';
+    });
+    
+    (function() {
+      const followersElem = document.getElementById('followers-count');
+      const likesElem = document.getElementById('likes-count');
+      const statsContainer = document.getElementById('statsContainer');
+      const targetFollowers = 12300;
+      const targetLikes = 57300;
+      let animated = false;
+      function formatNumber(num) { 
+        if (num >= 1000) {
+          return (num / 1000).toFixed(1) + 'K+';
+        }
+        return num.toLocaleString() + '+'; 
+      }
+      function animateCountUp(element, target, duration = 2000) {
+        let startTime = null;
+        function step(currentTime) {
+          if (!startTime) startTime = currentTime;
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const currentVal = Math.floor(progress * target);
+          element.innerText = formatNumber(currentVal);
+          if (progress < 1) requestAnimationFrame(step);
+          else element.innerText = formatNumber(target);
+        }
+        requestAnimationFrame(step);
+      }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            animateCountUp(followersElem, targetFollowers, 2000);
+            animateCountUp(likesElem, targetLikes, 2000);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(statsContainer);
+    })();
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-XXXXXXXXXX');</script>
+</body>
+</html>
